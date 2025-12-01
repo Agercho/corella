@@ -1,0 +1,8 @@
+# Archivos a ignorar en npm publish
+node_modules
+src
+*.ts
+*.tsx
+tsconfig.json
+.turbo
+.DS_Store
