@@ -1,11 +1,25 @@
 {
   "name": "@corella/astro",
   "version": "0.0.1",
+  "description": "Astro components for Corella Design System",
+  "author": "German Aviles",
+  "license": "MIT",
+  "private": true,
   "type": "module",
   "main": "./dist/index.js",
   "exports": {
     ".": "./src/index.js",
     "./FilterChip": "./src/FilterChip.astro"
+  },
+  "files": [
+    "dist",
+    "src",
+    "README.md"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Agercho/corella.git",
+    "directory": "packages/astro"
   },
   "scripts": {
     "build": "tsc",

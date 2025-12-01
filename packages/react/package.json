@@ -1,11 +1,24 @@
 {
   "name": "@corella/react",
   "version": "0.0.1",
+  "description": "React components for Corella Design System",
+  "author": "German Aviles",
+  "license": "MIT",
+  "private": true,
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": "./dist/index.js"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Agercho/corella.git",
+    "directory": "packages/react"
   },
   "scripts": {
     "build": "tsc",

@@ -1,6 +1,17 @@
 {
   "name": "corella",
   "private": true,
+  "version": "0.0.1",
+  "description": "Core UI components for Corella Design System",
+  "author": "German Aviles",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Agercho/corella.git"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build": "turbo build",
     "dev": "turbo dev",
