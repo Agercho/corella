@@ -42,8 +42,8 @@ velvet-telescope/
 
 ```bash
 # Clonar el repositorio
-git clone <repository-url> velvet-telescope
-cd velvet-telescope
+git clone https://github.com/Agercho/corella.git
+cd corella
 
 # Instalar dependencias
 pnpm install
