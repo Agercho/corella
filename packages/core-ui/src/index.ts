@@ -1,1 +1,1 @@
-export * from './styles/getChipClasses';
+export * from './styles/getChipClasses.js';
