@@ -1,7 +1,7 @@
 {
   "name": "corella",
   "private": true,
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Core UI components for Corella Design System",
   "author": "German Aviles",
   "license": "MIT",
