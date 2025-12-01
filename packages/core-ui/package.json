@@ -4,8 +4,10 @@
   "description": "Framework-agnostic core UI utilities for Corella Design System",
   "author": "German Aviles",
   "license": "MIT",
-  "private": true,
   "type": "module",
+  "publishConfig": {
+    "access": "public"
+  },
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
