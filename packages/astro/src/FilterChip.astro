@@ -1,0 +1,14 @@
+---
+import { getChipClasses } from '@corella/core-ui';
+
+const { isActive = false, class: className = "", ...attrs } = Astro.props;
+const generatedClasses = getChipClasses(isActive);
+---
+
+<button
+  type="button"
+  class:list={[generatedClasses, className]}
+  {...attrs}
+>
+  <slot />
+</button>

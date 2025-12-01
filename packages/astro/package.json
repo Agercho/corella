@@ -1,0 +1,25 @@
+{
+  "name": "@corella/astro",
+  "version": "0.0.1",
+  "type": "module",
+  "main": "./dist/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./FilterChip": "./src/FilterChip.astro"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "astro dev",
+    "check": "astro check"
+  },
+  "dependencies": {
+    "@corella/core-ui": "workspace:*"
+  },
+  "peerDependencies": {
+    "astro": "^4.0.0"
+  },
+  "devDependencies": {
+    "astro": "^4.0.0",
+    "typescript": "^5.0.0"
+  }
+}

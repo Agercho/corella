@@ -1,0 +1,12 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --corella-color-primary: #3b82f6; /* blue-500 */
+  --corella-color-primary-hover: #2563eb; /* blue-600 */
+  --corella-color-primary-content: #ffffff;
+  --corella-color-base: #f3f4f6; /* gray-100 */
+  --corella-color-base-hover: #e5e7eb; /* gray-200 */
+  --corella-color-neutral: #374151; /* gray-700 */
+}
