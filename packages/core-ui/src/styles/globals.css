@@ -3,10 +3,31 @@
 @tailwind utilities;
 
 :root {
+  /* Brand Colors */
   --corella-color-primary: #3b82f6; /* blue-500 */
-  --corella-color-primary-hover: #2563eb; /* blue-600 */
+  --corella-color-primary-hover: #2563eb; /* blue-600, creado recien */
   --corella-color-primary-content: #ffffff;
-  --corella-color-base: #f3f4f6; /* gray-100 */
+  --corella-color-secondary: #ec4899; /* pink-500 */
+  --corella-color-secondary-content: #ffffff;
+  --corella-color-accent: #14b8a6; /* teal-500 */
+  --corella-color-accent-content: #ffffff;
+  --corella-color-neutral: #3d4451; /* gray-800-ish */
+  --corella-color-neutral-content: #ffffff;
+
+  /* Base Colors */
+  --corella-color-base-100: #ffffff;
+  --corella-color-base-200: #f3f4f6; /* gray-100 */
+  --corella-color-base-300: #e5e7eb; /* gray-200 */
   --corella-color-base-hover: #e5e7eb; /* gray-200 */
-  --corella-color-neutral: #374151; /* gray-700 */
+  --corella-color-base-content: #1f2937; /* gray-800 */
+
+  /* Semantic Colors */
+  --corella-color-info: #0ea5e9; /* sky-500 */
+  --corella-color-info-content: #ffffff;
+  --corella-color-success: #22c55e; /* green-500 */
+  --corella-color-success-content: #ffffff;
+  --corella-color-warning: #f59e0b; /* amber-500 */
+  --corella-color-warning-content: #ffffff;
+  --corella-color-error: #ef4444; /* red-500 */
+  --corella-color-error-content: #ffffff;
 }

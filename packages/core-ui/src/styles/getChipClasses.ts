@@ -3,7 +3,7 @@ const BASE_CLASSES = "px-6 py-2 rounded-full text-sm font-medium transition-all 
 // Clases específicas para el estado activo
 const ACTIVE_CLASSES = "bg-[--corella-color-primary] text-[--corella-color-primary-content] shadow-md hover:bg-[--corella-color-primary-hover]";
 // Clases específicas para el estado inactivo
-const INACTIVE_CLASSES = "bg-[--corella-color-base] text-[--corella-color-neutral] hover:text-[--corella-color-primary] hover:bg-[--corella-color-base-hover]";
+const INACTIVE_CLASSES = "bg-[--corella-color-base-300] text-[--corella-color-neutral] hover:text-[--corella-color-primary] hover:bg-transparent";
 
 
 /**
