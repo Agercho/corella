@@ -1,4 +1,4 @@
-import { clsx, type ClassValue } from "clsx";
+import { clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 
 export type ButtonSize = "xsmall" | "small" | "medium" | "large" | "xlarge";
