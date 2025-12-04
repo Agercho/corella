@@ -1,0 +1,31 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import { getButtonClasses, type ButtonProps as CoreButtonProps } from "@corella/core-ui";
+
+interface Props extends HTMLAttributes<"button">, CoreButtonProps {}
+
+const {
+  size,
+  color,
+  variant,
+  shape,
+  responsive,
+  disabled,
+  class: className,
+  ...props
+} = Astro.props;
+
+const classes = getButtonClasses({
+  size,
+  color,
+  variant,
+  shape,
+  responsive,
+  disabled,
+  className,
+});
+---
+
+<button class={classes} disabled={disabled} {...props}>
+  <slot />
+</button>
