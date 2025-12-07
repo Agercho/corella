@@ -3,16 +3,30 @@
 @tailwind utilities;
 
 :root {
-  /* Brand Colors */
+  /* Brand Colors - HEX format for solid colors */
   --corella-color-primary: #3b82f6; /* blue-500 */
-  --corella-color-primary-hover: #2563eb; /* blue-600, creado recien */
+  --corella-color-primary-hover: #2563eb; /* blue-600 */
   --corella-color-primary-content: #ffffff;
+  --corella-color-primary-soft: rgba(59, 130, 246, 0.1);
+  --corella-color-primary-soft-hover: rgba(59, 130, 246, 0.2);
+
   --corella-color-secondary: #ec4899; /* pink-500 */
+  --corella-color-secondary-hover: #db2777; /* pink-600 */
   --corella-color-secondary-content: #ffffff;
+  --corella-color-secondary-soft: rgba(236, 72, 153, 0.1);
+  --corella-color-secondary-soft-hover: rgba(236, 72, 153, 0.2);
+
   --corella-color-accent: #14b8a6; /* teal-500 */
+  --corella-color-accent-hover: #0d9488; /* teal-600 */
   --corella-color-accent-content: #ffffff;
+  --corella-color-accent-soft: rgba(20, 184, 166, 0.1);
+  --corella-color-accent-soft-hover: rgba(20, 184, 166, 0.2);
+
   --corella-color-neutral: #3d4451; /* gray-800-ish */
+  --corella-color-neutral-hover: #1f2937; /* gray-800 */
   --corella-color-neutral-content: #ffffff;
+  --corella-color-neutral-soft: rgba(61, 68, 81, 0.1);
+  --corella-color-neutral-soft-hover: rgba(61, 68, 81, 0.2);
 
   /* Base Colors */
   --corella-color-base-100: #ffffff;
@@ -23,11 +37,26 @@
 
   /* Semantic Colors */
   --corella-color-info: #0ea5e9; /* sky-500 */
+  --corella-color-info-hover: #0284c7; /* sky-600 */
   --corella-color-info-content: #ffffff;
+  --corella-color-info-soft: rgba(14, 165, 233, 0.1);
+  --corella-color-info-soft-hover: rgba(14, 165, 233, 0.2);
+
   --corella-color-success: #22c55e; /* green-500 */
+  --corella-color-success-hover: #16a34a; /* green-600 */
   --corella-color-success-content: #ffffff;
+  --corella-color-success-soft: rgba(34, 197, 94, 0.1);
+  --corella-color-success-soft-hover: rgba(34, 197, 94, 0.2);
+
   --corella-color-warning: #f59e0b; /* amber-500 */
+  --corella-color-warning-hover: #d97706; /* amber-600 */
   --corella-color-warning-content: #ffffff;
+  --corella-color-warning-soft: rgba(245, 158, 11, 0.1);
+  --corella-color-warning-soft-hover: rgba(245, 158, 11, 0.2);
+
   --corella-color-error: #ef4444; /* red-500 */
+  --corella-color-error-hover: #dc2626; /* red-600 */
   --corella-color-error-content: #ffffff;
+  --corella-color-error-soft: rgba(239, 68, 68, 0.1);
+  --corella-color-error-soft-hover: rgba(239, 68, 68, 0.2);
 }
