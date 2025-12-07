@@ -8,7 +8,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "main": "./dist/index.js",
+  "main": "./dist/index.ts",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": "./dist/index.js",
