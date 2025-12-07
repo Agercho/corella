@@ -25,7 +25,7 @@ velvet-telescope/
 │   ├── core-ui/          # Núcleo agnóstico (estilos + lógica)
 │   ├── react/            # Componentes React
 │   └── astro/            # Componentes Astro
-├── storybook/            # Documentación de componentes
+├── playground/           # Documentación de componentes
 ├── package.json          # Configuración raíz del monorepo
 ├── pnpm-workspace.yaml   # Configuración de workspaces
 └── turbo.json            # Configuración de Turborepo
