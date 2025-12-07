@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Input } from "@corella/react";
 
 export default {
-  title: "Components/Input",
+  title: "Forms/Input",
   tags: ["autodocs"],
   component: Input,
   argTypes: {
