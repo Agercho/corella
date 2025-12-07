@@ -1,0 +1,66 @@
+---
+import { getSelectionClasses, type SelectionProps as CoreSelectionProps } from "@corella/core-ui";
+
+interface Props extends CoreSelectionProps {
+  label?: string;
+  wrapperClassName?: string;
+  name?: string;
+  value?: string;
+  required?: boolean;
+  checked?: boolean;
+  id?: string;
+  hideControl?: boolean;
+}
+
+const {
+  size = "medium",
+  color = "primary",
+  disabled = false,
+  error = false,
+  variant = "classic" as "classic" | "card" | "chip",
+  label,
+  wrapperClassName,
+  className,
+  checked,
+  hideControl,
+  id,
+  ...props
+} = Astro.props;
+
+const { container, input, indicator } = getSelectionClasses({
+  type: "radio",
+  size,
+  color,
+  disabled,
+  error,
+  variant,
+  hideControl,
+  className: wrapperClassName,
+});
+---
+
+<label class={container} for={id}>
+  <div class="relative flex items-center">
+    <input
+      id={id}
+      type="radio"
+      class:list={[input, className]}
+      disabled={disabled}
+      checked={checked}
+      {...props}
+    />
+
+    {/* Radio Dot indicator */}
+    <div class={indicator} />
+  </div>
+
+  {/* Label Content */}
+  {
+    (label || Astro.slots.has("default")) && (
+       <div class:list={["flex flex-col", variant === "card" ? "ml-1 w-full" : ""]}>
+        {label && <span class:list={["text-base-content", variant === "card" ? "font-semibold mb-1" : ""]}>{label}</span>}
+        <slot />
+      </div>
+    )
+  }
+</label>
