@@ -19,7 +19,13 @@
     "install-all": "turbo install",
     "clean": "turbo clean",
     "lint": "turbo lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "version:patch": "pnpm -r exec npm version patch --no-git-tag-version",
+    "version:minor": "pnpm -r exec npm version minor --no-git-tag-version",
+    "version:major": "pnpm -r exec npm version major --no-git-tag-version",
+    "release:patch": "pnpm -r version patch && pnpm build && pnpm -r publish --access public",
+    "release:minor": "pnpm -r version minor && pnpm build && pnpm -r publish --access public",
+    "release:major": "pnpm -r version major && pnpm build && pnpm -r publish --access public"
   },
   "devDependencies": {
     "turbo": "^2.0.0",
