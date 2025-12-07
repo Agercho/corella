@@ -1,338 +1,239 @@
 # Corella Design System
 
-Un sistema de diseño modular y agnóstico de framework, construido con arquitectura de monorepo para máxima flexibilidad y reutilización.
+![Corella Banner](https://via.placeholder.com/1200x300?text=Corella+Design+System)
 
-## 📋 Descripción
+**Corella** es un sistema de diseño modular, ligero y agnóstico de framework, construido sobre una arquitectura de monorepo moderna. Su objetivo es proporcionar una interfaz de usuario consistente y de alta calidad a través de múltiples tecnologías (React, Astro) compartiendo un único núcleo de verdad para estilos y lógica.
 
-**Corella** es un sistema de diseño ligero y altamente optimizado que proporciona componentes de UI consistentes y personalizables para múltiples frameworks. Está diseñado con una arquitectura de tres capas:
+---
 
-- **`@corella/core-ui`**: Núcleo agnóstico con estilos base y lógica compartida
-- **`@corella/react`**: Wrapper de componentes React
-- **`@corella/astro`**: Wrapper de componentes Astro
+## � Tabla de Contenidos
 
-Esta arquitectura permite:
-- ✨ **Portabilidad**: Usa los mismos estilos en diferentes frameworks
-- 🎯 **Tree-shaking**: Importa solo lo que necesitas
-- 🚀 **Optimización**: Diseño modular para mejor rendimiento
-- 🎨 **Personalización**: Tematización mediante CSS Variables
-- 📦 **ESM**: Soporte completo para módulos ES
+- [¿Qué es Corella?](#-qué-es-corella)
+- [Arquitectura "Core Pattern"](#-arquitectura-core-pattern)
+- [Tecnologías](#-tecnologías)
+- [Estructura del Monorepo](#-estructura-del-monorepo)
+- [Guía de Instalación](#-guía-de-instalación)
+- [Configuración del Proyecto](#-configuración-del-proyecto)
+- [Personalización de Colores](#-personalización-de-colores)
+- [Paquetes Disponibles](#-paquetes-disponibles)
+- [Contribución](#-contribución)
 
-## 🏗️ Arquitectura del Proyecto
+---
 
+## 🌟 ¿Qué es Corella?
+
+Corella no es solo una librería de componentes; es una metodología de distribución de UI. A diferencia de las librerías tradicionales que a menudo duplican la lógica de estilos para cada framework, Corella centraliza toda la identidad visual (tokens, clases, lógica de variantes) en un paquete núcleo puro (`@corella/core-ui`).
+
+Los paquetes de framework (`@corella/react`, `@corella/astro`) actúan como **wrappers ligeros** que consumen este núcleo y lo adaptan a la idiosincrasia de cada tecnología (Hooks para React, Props/Slots para Astro).
+
+### Filosofía de Diseño
+- **Agnosticismo Primero:** Los estilos no dependen de React ni de Astro.
+- **Atomicidad:** Componentes pequeños y componibles.
+- **Themeable:** Tokens de diseño basados en CSS Variables nativas.
+- **Performance:** Tree-shaking agresivo y cero runtime CSS-in-JS.
+
+---
+
+## 🏗️ Arquitectura "Core Pattern"
+
+El patrón de arquitectura de Corella asegura que cualquier cambio visual se propague instantáneamente a todos los frameworks soportados.
+
+```mermaid
+graph TD
+    UserProject[Proyecto de Usuario Next.js / Astro]
+
+    subgraph "Corella Monorepo"
+        CoreUI["@corella/core-ui (Núcleo)"]
+        ReactPkg["@corella/react"]
+        AstroPkg["@corella/astro"]
+
+        ReactPkg -->|Consume Estilos y Utilidades| CoreUI
+        AstroPkg -->|Consume Estilos y Utilidades| CoreUI
+    end
+
+    UserProject --> ReactPkg
+    UserProject --> AstroPkg
 ```
-velvet-telescope/
+
+### Flujo de Datos
+1.  **Definición:** Los tokens (colores, espacios) y las clases de variantes (styles creators) se definen en `core-ui`.
+2.  **Consumo:** Los paquetes `react` y `astro` importan estas funciones creadoras (ej. `getButtonClasses`).
+3.  **Renderizado:** Cada framework renderiza el HTML nativo aplicando las clases generadas por el núcleo.
+
+---
+
+## 🛠️ Tecnologías
+
+Corella está construido sobre un stack moderno enfocado en rendimiento y DX (Developer Experience):
+
+-   **Lenguaje:** [TypeScript](https://www.typescriptlang.org/) (Tipado estricto en todo el monorepo).
+-   **Estilos:** [Tailwind CSS](https://tailwindcss.com/) (Motor de estilos atómicos).
+-   **Gestión de Paquetes:** [pnpm](https://pnpm.io/) (Workspaces eficientes).
+-   **Orquestación:** [Turborepo](https://turbo.build/) (Caché de builds y ejecución paralela).
+-   **Documentación:** Storybook & Playground interno.
+
+---
+
+## 📂 Estructura del Monorepo
+
+```bash
+corella/
 ├── packages/
-│   ├── core-ui/          # Núcleo agnóstico (estilos + lógica)
-│   ├── react/            # Componentes React
-│   └── astro/            # Componentes Astro
-├── playground/           # Documentación de componentes
-├── package.json          # Configuración raíz del monorepo
-├── pnpm-workspace.yaml   # Configuración de workspaces
-└── turbo.json            # Configuración de Turborepo
+│   ├── core-ui/          # 🧠 EL CEREBRO: Estilos base, utilidades y tokens.
+│   │   ├── src/styles/   # Definiciones de clases y variables CSS.
+│   │   └── package.json
+│   │
+│   ├── react/            # ⚛️ ADAPTADOR REACT: Componentes funcionales.
+│   │   ├── src/          # Implementación de componentes (Button.tsx, etc).
+│   │   └── package.json
+│   │
+│   └── astro/            # 🚀 ADAPTADOR ASTRO: Componentes de servidor.
+│       ├── src/          # Implementación (.astro).
+│       └── package.json
+│
+├── playground/           # 📖 DEMO: Documentación viva y Storybook.
+├── package.json          # Configuración raíz.
+└── turbo.json            # Pipeline de construcción.
 ```
 
-## 🚀 Instalación
-
-### Prerrequisitos
-
-- **Node.js**: >= 18.0.0
-- **pnpm**: 9.0.0 (recomendado)
-
-### Instalación del Monorepo
-
-```bash
-# Clonar el repositorio
-git clone https://github.com/Agercho/corella.git
-cd corella
-
-# Instalar dependencias
-pnpm install
-```
-
-### Usar Corella en tu Proyecto
-
-#### Con React
-
-```bash
-pnpm add @corella/react
-```
-
-```jsx
-import { FilterChip } from '@corella/react';
-
-function App() {
-  return (
-    <FilterChip
-      label="Ejemplo"
-      selected={false}
-      onClick={() => console.log('clicked')}
-    />
-  );
-}
-```
-
-#### Con Astro
-
-```bash
-pnpm add @corella/astro
-```
-
-```astro
----
-import { FilterChip } from '@corella/astro';
 ---
 
-<FilterChip label="Ejemplo" selected={false} />
-```
+## 🚀 Guía de Instalación
 
-## 🛠️ Comandos Disponibles
+Para utilizar Corella en tu proyecto externo, debes instalar los paquetes necesarios según tu framework.
 
-### Comandos Raíz (Monorepo)
+### Pre-requisitos
+Asegúrate de tener configurado **Tailwind CSS** en tu proyecto, ya que Corella utiliza clases de utilidad que deben ser procesadas/reconocidas o bien importar nuestros estilos pre-procesados.
 
+### Instalación de Paquetes
+
+#### Para proyectos React (Next.js, Vite, CRA)
 ```bash
-# Desarrollo - Ejecuta todos los paquetes en modo watch
-pnpm run dev
-
-# Build - Construye todos los paquetes
-pnpm run build
-
-# Storybook - Ejecuta Storybook en modo desarrollo
-pnpm run storybook
-
-# Linting - Ejecuta linter en todos los paquetes
-pnpm run lint
-
-# Formateo - Formatea código con Prettier
-pnpm run format
-
-# Limpieza - Limpia archivos generados
-pnpm run clean
+npm install @corella/react @corella/core-ui
+# o
+pnpm add @corella/react @corella/core-ui
 ```
 
-### Comandos por Paquete
-
+#### Para proyectos Astro
 ```bash
-# Trabajar solo en core-ui
-cd packages/core-ui
-pnpm run dev          # Modo watch
-pnpm run build        # Build
-
-# Trabajar solo en React
-cd packages/react
-pnpm run dev          # Modo watch
-pnpm run build        # Build
-
-# Trabajar solo en Astro
-cd packages/astro
-pnpm run dev          # Modo watch
-pnpm run build        # Build
-pnpm run check        # Verificación de tipos Astro
+npm install @corella/astro @corella/core-ui
+# o
+pnpm add @corella/astro @corella/core-ui
 ```
 
-## ⚙️ Configuración
+---
 
-### Configuración de Tailwind CSS
+## ⚙️ Configuración del Proyecto
 
-Corella utiliza Tailwind CSS con CSS Variables para tematización. Para usar los estilos en tu proyecto:
+Para que los estilos de Corella se apliquen correctamente, necesitas integrar la configuración de Tailwind y los estilos base.
 
-1. **Instala Tailwind CSS** en tu proyecto:
+### 1. Configurar Tailwind CSS (`tailwind.config.mjs`)
+Debes decirle a Tailwind que escanee los archivos dentro de `node_modules/@corella` para generar el CSS necesario.
 
-```bash
-pnpm add -D tailwindcss postcss autoprefixer
-```
-
-2. **Configura `tailwind.config.js`**:
-
-```js
+```javascript
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [
     './src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}',
-    './node_modules/@corella/**/*.{js,ts,jsx,tsx}' // Importante
+    // 👇 Agrega esta línea para incluir los componentes de Corella
+    './node_modules/@corella/**/*.{js,ts,jsx,tsx,astro}'
   ],
   theme: {
     extend: {
-      // Personaliza tus colores, fuentes, etc.
+      colors: {
+        // Puedes extender los colores de Corella aquí si es necesario
+      }
     },
   },
   plugins: [],
 }
 ```
 
-3. **Importa los estilos base** (si están disponibles):
+### 2. Importar Estilos y Personalizar Colores
+
+Importa el CSS base de Corella en tu archivo CSS principal o en el punto de entrada de tu aplicación.
 
 ```css
-@import '@corella/core-ui/styles';
-```
+/* En tu archivo CSS global (ej. globals.css) */
+@import '@corella/core-ui/styles.css';
 
-### Configuración de TypeScript
+/* 🎨 PERSONALIZACIÓN (THEMING)
+   Corella usa variables CSS nativas.
+   Puedes sobrescribirlas en :root para cambiar el tema globalmente.
+*/
+:root {
+  /* Marca Principal (Primary) - Ej. Azul Brand */
+  --corella-color-primary: #3b82f6;
+  --corella-color-primary-content: #ffffff; /* Texto sobre primary */
+  --corella-color-primary-hover: #2563eb;
 
-El proyecto usa TypeScript 5.0+. La configuración base está en `tsconfig.json` en la raíz:
+  /* Superficies (Base) */
+  --corella-color-base-100: #ffffff;      /* Fondo de tarjetas/paneles */
+  --corella-color-base-200: #f3f4f6;      /* Fondo general */
+  --corella-color-base-content: #1f2937;  /* Texto principal */
 
-```json
-{
-  "compilerOptions": {
-    "target": "ES2020",
-    "module": "ESNext",
-    "moduleResolution": "bundler",
-    "strict": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true
+  /* Bordes y Neutros */
+  --corella-color-neutral: #9ca3af;
+}
+
+/* Modo Oscuro (Opcional) */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --corella-color-base-100: #1f2937;
+    --corella-color-base-200: #111827;
+    --corella-color-base-content: #f9fafb;
+    --corella-color-primary: #60a5fa; /* Un tono más claro para dark mode */
   }
 }
 ```
 
-Cada paquete extiende esta configuración según sus necesidades.
-
-### Configuración de Turborepo
-
-El monorepo usa Turborepo para optimizar builds y cacheo. La configuración está en `turbo.json`:
-
-- **Build**: Ejecuta builds con dependencias en orden
-- **Dev**: Modo watch sin cacheo
-- **Clean**: Limpia archivos generados
-
-### Variables de Entorno
-
-Actualmente no se requieren variables de entorno. Si tu proyecto necesita configuración adicional, crea un archivo `.env` en la raíz:
-
-```bash
-# .env (ejemplo)
-NODE_ENV=development
-```
-
-## 📦 Estructura de Paquetes
-
-### @corella/core-ui
-
-Núcleo agnóstico del sistema de diseño.
-
-**Características:**
-- Estilos base con Tailwind CSS
-- Lógica compartida entre frameworks
-- CSS Variables para tematización
-- Sin dependencias de framework
-
-**Exports:**
-```js
-import { /* utilidades */ } from '@corella/core-ui';
-```
-
-### @corella/react
-
-Componentes React que consumen `@corella/core-ui`.
-
-**Características:**
-- Componentes React tipados con TypeScript
-- Props intuitivas y documentadas
-- Soporte para React 18+
-
-**Componentes disponibles:**
-- `FilterChip`: Chip de filtro interactivo
-
-### @corella/astro
-
-Componentes Astro que consumen `@corella/core-ui`.
-
-**Características:**
-- Componentes `.astro` nativos
-- Integración perfecta con Astro 4+
-- Renderizado del lado del servidor
-
-**Componentes disponibles:**
-- `FilterChip`: Chip de filtro
-
-## 📚 Storybook
-
-Storybook está configurado para documentar y probar componentes visualmente.
-
-```bash
-# Ejecutar Storybook
-pnpm run storybook
-
-# Build de Storybook
-cd storybook
-pnpm run build-storybook
-```
-
-Storybook estará disponible en `http://localhost:6006`
-
-## 🔧 Desarrollo
-
-### Agregar un Nuevo Componente
-
-1. **Crear el componente en `core-ui`** (si tiene lógica compartida):
-
-```bash
-cd packages/core-ui/src
-# Crear archivos de estilos/lógica
-```
-
-2. **Crear wrapper en React**:
-
-```bash
-cd packages/react/src
-# Crear componente React
-```
-
-3. **Crear wrapper en Astro**:
-
-```bash
-cd packages/astro/src
-# Crear componente Astro
-```
-
-4. **Documentar en Storybook**:
-
-```bash
-cd storybook/src
-# Crear stories para el componente
-```
-
-### Workflow de Desarrollo
-
-1. **Ejecuta el modo desarrollo**:
-```bash
-pnpm run dev
-```
-
-2. **Ejecuta Storybook** en otra terminal:
-```bash
-pnpm run storybook
-```
-
-3. **Realiza cambios** en los paquetes - se recargarán automáticamente
-
-4. **Verifica** los cambios en Storybook
-
-## 🤝 Contribución
-
-### Convenciones de Código
-
-- **TypeScript**: Todo el código debe estar tipado
-- **Prettier**: Usa `pnpm run format` antes de commit
-- **Naming**:
-  - Componentes: PascalCase (`FilterChip`)
-  - Archivos: kebab-case para utilidades, PascalCase para componentes
-  - CSS: BEM cuando sea apropiado
-
-### Proceso de Contribución
-
-1. Crea una rama desde `main`
-2. Realiza tus cambios
-3. Ejecuta `pnpm run format` y `pnpm run lint`
-4. Crea un Pull Request
-
-## 📄 Licencia
-
-[Especificar licencia - MIT, Apache, etc.]
-
-## 🙋 Soporte
-
-Para preguntas, problemas o sugerencias:
-- Abre un issue en GitHub
-- [Agregar información de contacto si aplica]
+Esto habilitará las **CSS Variables** (`--corella-color-primary`, etc.) que dan vida al sistema de diseño.
 
 ---
 
-**Hecho con ❤️ por el equipo de Corella**
+## 📦 Paquetes Disponibles
+
+| Paquete | Versión | Descripción |
+| :--- | :---: | :--- |
+| **[`@corella/core-ui`](./packages/core-ui)** | `0.0.2` | Utilidades de estilo, tokens y lógica base. |
+| **[`@corella/react`](./packages/react)** | `0.0.2` | Componentes listos para usar en React. |
+| **[`@corella/astro`](./packages/astro)** | `0.0.2` | Componentes optimizados para Astro. |
+
+### Componentes Implementados
+Hasta la fecha, Corella incluye soporte para:
+- **Button**: Botones con variantes (solid, outline, ghost), tamaños y colores.
+- **Input**: Entradas de texto con soporte de iconos, etiquetas flotantes y estados.
+- **Checkbox**: Selección múltiple con variantes clásica, tarjeta y chip.
+- **Radio**: Selección única con variantes tarjeta y chip.
+- **FilterChip**: Elementos de filtrado interactivos.
+
+---
+
+## 🤝 Contribución
+
+¡Bienvenido al equipo! Para desarrollar en Corella:
+
+1.  **Clona el repo:**
+    ```bash
+    git clone https://github.com/Agercho/corella.git
+    ```
+2.  **Instala dependencias (pnpm es obligatorio):**
+    ```bash
+    pnpm install
+    ```
+3.  **Inicia el entorno de desarrollo:**
+    ```bash
+    pnpm dev
+    ```
+    Esto iniciará el modo *watch* para los paquetes y Storybook para visualización.
+
+### Flujo de Trabajo
+1.  Crea la lógica de estilos en `packages/core-ui`.
+2.  Implementa el componente en `packages/react`.
+3.  Implementa el componente en `packages/astro`.
+4.  Crea/Actualiza las historias en `playground/stories`.
+5.  Asegúrate de que todo compile con `pnpm build`.
+
+---
+
+2024 © Corella Design System. MIT License.
