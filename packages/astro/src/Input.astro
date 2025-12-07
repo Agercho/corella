@@ -1,0 +1,132 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import { getInputClasses, type InputProps as CoreInputProps } from "@corella/core-ui";
+
+interface Props extends Omit<HTMLAttributes<'input'>, "size" | "color" | "disabled">, CoreInputProps {
+  label?: string;
+  wrapperClassName?: string;
+  helperText?: string;
+}
+
+const {
+  size = "small",
+  color = "primary",
+  error = false,
+  disabled = false,
+  fullWidth = true,
+  label,
+  helperText,
+  floatingLabel,
+  wrapperClassName,
+  className,
+  id,
+  placeholder,
+  ...props
+} = Astro.props;
+
+// Determine if we have content for slots to adjust padding
+const hasStartContent = Astro.slots.has("start-icon") || Astro.slots.has("start-action");
+const hasEndContent = Astro.slots.has("end-icon") || Astro.slots.has("end-action");
+
+const inputClasses = getInputClasses({
+  size,
+  color,
+  error,
+  disabled,
+  fullWidth,
+  hasStartIcon: hasStartContent,
+  hasEndIcon: hasEndContent,
+  floatingLabel: !!floatingLabel, // Ensure boolean
+  className,
+});
+
+const isFloating = !!floatingLabel;
+
+const LABEL_SIZES = {
+  small: "left-3 top-2 text-xs peer-placeholder-shown:top-2 peer-focus:top-0.5 peer-focus:text-[10px]",
+  medium: "left-4 top-2.5 text-sm peer-placeholder-shown:top-2.5 peer-focus:top-1 peer-focus:text-xs",
+  large: "left-5 top-3 text-base peer-placeholder-shown:top-3 peer-focus:top-1.5 peer-focus:text-sm",
+  xlarge: "left-6 top-4 text-lg peer-placeholder-shown:top-4 peer-focus:top-2 peer-focus:text-base",
+};
+
+const LABEL_COLORS: Record<string, string> = {
+  primary: "peer-focus:text-primary",
+  secondary: "peer-focus:text-secondary",
+  accent: "peer-focus:text-accent",
+  info: "peer-focus:text-info",
+  success: "peer-focus:text-success",
+  warning: "peer-focus:text-warning",
+  error: "peer-focus:text-error",
+  neutral: "peer-focus:text-neutral",
+};
+
+const labelColorClass = error ? LABEL_COLORS["error"] : LABEL_COLORS[color] || LABEL_COLORS["primary"];
+---
+
+<div class:list={[`${fullWidth ? "w-full" : "inline-flex w-auto"} flex-col`]}>
+  {/* Standard Label */}
+  {
+    label && !isFloating && (
+      <label for={id} class:list={["block mb-1.5 text-sm font-medium", error ? "text-error" : "text-base-content/80"]}>
+        {label}
+      </label>
+    )
+  }
+
+  <div class:list={["relative", fullWidth ? "w-full" : "w-auto", wrapperClassName]}>
+    {/* Start Content Slot */}
+    {
+      hasStartContent && (
+        <div class:list={["absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 flex items-center", Astro.slots.has("start-action") ? "pointer-events-auto" : "pointer-events-none"]}>
+          <slot name="start-action" />
+          <slot name="start-icon" />
+        </div>
+      )
+    }
+
+    <input
+      id={id}
+      disabled={disabled}
+      placeholder={isFloating ? " " : placeholder}
+      class:list={[inputClasses, "peer"]}
+      {...props}
+    />
+
+    {/* Floating Label */}
+    {
+      label && isFloating && (
+        <label
+          for={id}
+          class:list={[
+            "absolute text-gray-500 duration-200 transform origin-[0] bg-transparent pointer-events-none",
+            "peer-focus:scale-90 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:-translate-y-0.5",
+            labelColorClass,
+            LABEL_SIZES[size],
+            hasStartContent ? "peer-placeholder-shown:left-10" : "",
+          ]}
+        >
+          {label}
+        </label>
+      )
+    }
+
+    {/* End Content Slot */}
+    {
+      hasEndContent && (
+        <div class:list={["absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 flex items-center", Astro.slots.has("end-action") ? "pointer-events-auto" : "pointer-events-none"]}>
+          <slot name="end-action" />
+          <slot name="end-icon" />
+        </div>
+      )
+    }
+  </div>
+
+  {/* Helper Text */}
+  {
+    helperText && (
+      <div class:list={["mt-1.5 text-xs", error ? "text-error" : "text-gray-500"]}>
+        {helperText}
+      </div>
+    )
+  }
+</div>
