@@ -1,7 +1,5 @@
 # Corella Design System
 
-![Corella Banner](https://via.placeholder.com/1200x300?text=Corella+Design+System)
-
 **Corella** es un sistema de diseño modular, ligero y agnóstico de framework, construido sobre una arquitectura de monorepo moderna. Su objetivo es proporcionar una interfaz de usuario consistente y de alta calidad a través de múltiples tecnologías (React, Astro) compartiendo un único núcleo de verdad para estilos y lógica.
 
 ---
