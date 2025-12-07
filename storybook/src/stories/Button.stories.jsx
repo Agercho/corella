@@ -66,14 +66,14 @@ export const Responsive = () => (
 
 export const Colors = () => (
   <div className="flex flex-wrap gap-4">
-    <Button color="neutral">Neutral</Button>
-    <Button color="primary">Primary</Button>
-    <Button color="secondary">Secondary</Button>
-    <Button color="accent">Accent</Button>
-    <Button color="info">Info</Button>
-    <Button color="success">Success</Button>
-    <Button color="warning">Warning</Button>
-    <Button color="error">Error</Button>
+    <Button color="neutral" variant="soft">Neutral</Button>
+    <Button color="primary" variant="solid">Primary</Button>
+    <Button color="secondary" variant="solid">Secondary</Button>
+    <Button color="accent" variant="solid">Accent</Button>
+    <Button color="info" variant="solid">Info</Button>
+    <Button color="success" variant="solid">Success</Button>
+    <Button color="warning" variant="solid">Warning</Button>
+    <Button color="error" variant="solid">Error</Button>
   </div>
 );
 
@@ -161,6 +161,19 @@ export const Dash = () => (
     <Button variant="dash" color="error">
       Error
     </Button>
+  </div>
+);
+
+export const PillButton = () => (
+  <div className="flex items-center gap-4">
+    <Button shape="pill" variant="solid" color="primary">primary</Button>
+    <Button shape="pill" variant="solid" color="secondary">secondary</Button>
+    <Button shape="pill" variant="solid" color="accent">accent</Button>
+    <Button shape="pill" variant="solid" color="info">info</Button>
+    <Button shape="pill" variant="solid" color="success">success</Button>
+    <Button shape="pill" variant="solid" color="warning">warning</Button>
+    <Button shape="pill" variant="solid" color="error">error</Button>
+    <Button shape="pill" variant="solid" color="neutral">neutral</Button>
   </div>
 );
 

@@ -1,7 +1,10 @@
 import React, { forwardRef } from "react";
-import { getButtonClasses, type ButtonProps as CoreButtonProps } from "@corella/core-ui";
+import {
+  getButtonClasses,
+  type ButtonProps as CoreButtonProps,
+} from "@corella/core-ui";
 
-export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement>, CoreButtonProps {
+export interface ButtonProps extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "color">, CoreButtonProps {
   asChild?: boolean;
 }
 
