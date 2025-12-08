@@ -1,0 +1,60 @@
+---
+import {
+  getCardClasses,
+  getCardHeaderClasses,
+  getCardBodyClasses,
+  getCardFooterClasses,
+  type CardProps as CoreCardProps,
+} from "@corella/core-ui";
+
+interface Props extends CoreCardProps {
+  id?: string;
+  className?: string; // Container class
+  headerClassName?: string;
+  bodyClassName?: string;
+  footerClassName?: string;
+  noPadding?: boolean; // Apply to all or handle individually if needed. For simplicity, let's keep it simple or allow fine-grained via classes
+}
+
+const {
+  bordered = true,
+  shadow = "sm",
+  className,
+  headerClassName,
+  bodyClassName,
+  footerClassName,
+  id,
+  ...props
+} = Astro.props;
+
+const containerClasses = getCardClasses({ bordered, shadow, className });
+const headerClasses = getCardHeaderClasses({ className: headerClassName });
+// Allow body to have custom padding or global noPadding if we wanted, but explicit classes are better for Astro slots
+const bodyClasses = getCardBodyClasses({ className: bodyClassName });
+const footerClasses = getCardFooterClasses({ className: footerClassName });
+
+const hasHeader = Astro.slots.has("header");
+const hasFooter = Astro.slots.has("footer");
+---
+
+<div id={id} class={containerClasses} {...props}>
+  {
+    hasHeader && (
+      <div class={headerClasses}>
+        <slot name="header" />
+      </div>
+    )
+  }
+
+  <div class={bodyClasses}>
+    <slot />
+  </div>
+
+  {
+    hasFooter && (
+      <div class={footerClasses}>
+        <slot name="footer" />
+      </div>
+    )
+  }
+</div>
