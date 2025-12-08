@@ -1,0 +1,42 @@
+---
+import {
+  getTimelineItemClasses,
+  getTimelinePointClasses,
+  getTimelineContentClasses,
+  getTimelineTimeClasses
+} from "@corella/core-ui";
+
+// NOTE: Since Astro doesn't pass context down, we assume "vertical" as default style for Item.
+// If using "alternate", this component might need to be passed a `variant="alternate"` prop explicitly
+// OR we use CSS descendant selectors in the parent Timeline to styling these items.
+// For now, we expose `variant` prop to be manual if needed.
+
+interface Props {
+  variant?: "vertical" | "horizontal" | "alternate"; // Defaults to vertical if not provided
+  className?: string; // Item class
+  filled?: boolean;
+  time?: string;
+}
+
+const { variant = "vertical", className, filled = true, time } = Astro.props;
+
+const itemClass = getTimelineItemClasses({ variant, className });
+const pointClass = getTimelinePointClasses({ variant, filled, icon: Astro.slots.has("icon") });
+const contentClass = getTimelineContentClasses({ variant });
+const timeClass = getTimelineTimeClasses({});
+
+const hasIcon = Astro.slots.has("icon");
+---
+
+<li class={itemClass}>
+  <div class={pointClass}>
+    <slot name="icon" />
+  </div>
+
+  <div class={contentClass}>
+    {time && <time class={timeClass}>{time}</time>}
+    <slot name="time" /> {/* Allow custom time slot if string prop isn't enough */}
+
+    <slot /> {/* Default Content */}
+  </div>
+</li>

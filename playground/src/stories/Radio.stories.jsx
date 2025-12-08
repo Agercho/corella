@@ -2,7 +2,7 @@ import React from "react";
 import { Radio } from "@corella/react";
 
 export default {
-  title: "Components/Radio",
+  title: "Forms/Radio",
   component: Radio,
   tags: ["autodocs"],
   argTypes: {

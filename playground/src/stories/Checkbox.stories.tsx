@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Checkbox } from "@corella/react";
 
 export default {
-  title: "Components/Checkbox",
+  title: "Forms/Checkbox",
   component: Checkbox,
   tags: ["autodocs"],
   argTypes: {

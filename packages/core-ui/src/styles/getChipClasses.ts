@@ -1,18 +1,13 @@
-// Clases base que siempre se aplican
-const BASE_CLASSES = "px-6 py-2 rounded-full text-sm font-medium transition-all duration-300";
-// Clases específicas para el estado activo
-const ACTIVE_CLASSES = "bg-[--corella-color-primary] text-[--corella-color-primary-content] shadow-md hover:bg-[--corella-color-primary-hover]";
-// Clases específicas para el estado inactivo
-const INACTIVE_CLASSES = "bg-[--corella-color-base-300] text-[--corella-color-neutral] hover:text-[--corella-color-primary] hover:bg-transparent";
+import { clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
 
-
-/**
- * Función pura que calcula las clases CSS para el FilterChip.
- * @param isActive - Si el chip debe mostrarse como activo.
- * @returns Una cadena de clases Tailwind CSS.
- */
 export function getChipClasses(isActive: boolean): string {
-  // Concatena las clases base con las clases de estado
-  const stateClasses = isActive ? ACTIVE_CLASSES : INACTIVE_CLASSES;
-  return `${BASE_CLASSES} ${stateClasses}`;
+  return twMerge(
+    clsx(
+      "inline-flex items-center px-3 py-1 rounded-full text-sm font-medium transition-colors cursor-pointer border select-none",
+      isActive
+        ? "bg-primary text-primary-content border-primary"
+        : "bg-base-100 text-base-content border-base-300 hover:bg-base-200"
+    )
+  );
 }
