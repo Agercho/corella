@@ -1,0 +1,31 @@
+---
+import { getTimelineContainerClasses, type TimelineVariant } from "@corella/core-ui";
+
+interface Props {
+  variant?: TimelineVariant;
+  className?: string;
+  id?: string;
+}
+
+const { variant = "vertical", className, id } = Astro.props;
+
+const classes = getTimelineContainerClasses({ variant, className });
+---
+
+<ol id={id} class={classes}>
+  {/* Horizontal Line */}
+  {variant === "horizontal" && (
+    <div class="hidden sm:block absolute left-0 right-0 top-0 h-0.5 bg-base-300 pointer-events-none"></div>
+  )}
+
+  {/* Alternate Lines */}
+  {variant === "alternate" && (
+    <>
+      {/* Desktop Central Line */}
+      <div class="hidden md:block absolute left-1/2 top-0 bottom-0 w-0.5 bg-base-300 -translate-x-1/2 transform pointer-events-none"></div>
+      {/* Mobile Left Line */}
+      <div class="md:hidden absolute left-4 top-0 bottom-0 w-0.5 bg-base-300 pointer-events-none"></div>
+    </>
+  )}
+  <slot />
+</ol>
